@@ -1,5 +1,7 @@
 # Golf Charity Platform
 
+A golf charity platform built with Next.js, Supabase, and Stripe.
+
 A subscription-driven web application combining golf performance tracking, charity fundraising, and monthly draw-based prize rewards.
 
 ## Features
