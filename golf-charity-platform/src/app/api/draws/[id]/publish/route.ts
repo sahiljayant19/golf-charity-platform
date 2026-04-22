@@ -3,8 +3,8 @@ import { supabase } from '@/lib/supabase/client'
 import { createServiceClient } from '@/lib/supabase/client'
 import { distributePrizePool, checkMatches } from '@/lib/draw/engine'
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
-  const drawId = params.id
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id: drawId } = await params
 
   // Get draw details
   const { data: draw, error: drawError } = await supabase

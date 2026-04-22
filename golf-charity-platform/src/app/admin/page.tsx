@@ -313,7 +313,7 @@ function DrawsTab({ draws, onRefresh }: { draws: Draw[]; onRefresh: () => void }
                   type="month"
                   value={formData.drawMonth}
                   onChange={(e) => setFormData({ ...formData, drawMonth: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
                   required
                 />
               </div>
@@ -324,7 +324,7 @@ function DrawsTab({ draws, onRefresh }: { draws: Draw[]; onRefresh: () => void }
                 <select
                   value={formData.drawType}
                   onChange={(e) => setFormData({ ...formData, drawType: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
                 >
                   <option value="random">Random</option>
                   <option value="algorithmic">Algorithmic</option>
@@ -425,7 +425,7 @@ function CharitiesTab({ charities, onRefresh }: { charities: Charity[]; onRefres
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
                   required
                 />
               </div>
@@ -434,7 +434,7 @@ function CharitiesTab({ charities, onRefresh }: { charities: Charity[]; onRefres
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
                   rows={3}
                   required
                 />
@@ -445,7 +445,7 @@ function CharitiesTab({ charities, onRefresh }: { charities: Charity[]; onRefres
                   type="url"
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
                 />
               </div>
               <div>
@@ -454,7 +454,7 @@ function CharitiesTab({ charities, onRefresh }: { charities: Charity[]; onRefres
                   type="url"
                   value={formData.websiteUrl}
                   onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
                 />
               </div>
               <div className="flex items-center gap-2">

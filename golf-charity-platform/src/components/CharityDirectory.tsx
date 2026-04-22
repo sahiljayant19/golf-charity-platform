@@ -21,7 +21,7 @@ export default function CharityDirectory() {
     }
     const response = await fetch(url)
     const data = await response.json()
-    setCharities(data)
+    setCharities(Array.isArray(data) ? data : [])
     setLoading(false)
   }
 
@@ -49,7 +49,7 @@ export default function CharityDirectory() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search charities..."
-            className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            className="w-full px-6 py-4 border border-gray-300 rounded-full focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
           />
           <button
             type="submit"

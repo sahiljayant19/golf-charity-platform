@@ -141,106 +141,142 @@ ALTER TABLE public.charity_events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.donations ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies for profiles
+DROP POLICY IF EXISTS "Public profiles are viewable by everyone" ON public.profiles;
 CREATE POLICY "Public profiles are viewable by everyone" ON public.profiles FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Users can insert their own profile" ON public.profiles;
 CREATE POLICY "Users can insert their own profile" ON public.profiles FOR INSERT WITH CHECK (auth.uid() = id);
+DROP POLICY IF EXISTS "Users can update their own profile" ON public.profiles;
 CREATE POLICY "Users can update their own profile" ON public.profiles FOR UPDATE USING (auth.uid() = id);
+DROP POLICY IF EXISTS "Admins can update any profile" ON public.profiles;
 CREATE POLICY "Admins can update any profile" ON public.profiles FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for charities
+DROP POLICY IF EXISTS "Charities are viewable by everyone" ON public.charities;
 CREATE POLICY "Charities are viewable by everyone" ON public.charities FOR SELECT USING (is_active = true);
+DROP POLICY IF EXISTS "Admins can insert charities" ON public.charities;
 CREATE POLICY "Admins can insert charities" ON public.charities FOR INSERT WITH CHECK (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can update charities" ON public.charities;
 CREATE POLICY "Admins can update charities" ON public.charities FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can delete charities" ON public.charities;
 CREATE POLICY "Admins can delete charities" ON public.charities FOR DELETE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for subscriptions
+DROP POLICY IF EXISTS "Users can view their own subscriptions" ON public.subscriptions;
 CREATE POLICY "Users can view their own subscriptions" ON public.subscriptions FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can view all subscriptions" ON public.subscriptions;
 CREATE POLICY "Admins can view all subscriptions" ON public.subscriptions FOR SELECT USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Users can insert their own subscriptions" ON public.subscriptions;
 CREATE POLICY "Users can insert their own subscriptions" ON public.subscriptions FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can update their own subscriptions" ON public.subscriptions;
 CREATE POLICY "Users can update their own subscriptions" ON public.subscriptions FOR UPDATE USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can update any subscription" ON public.subscriptions;
 CREATE POLICY "Admins can update any subscription" ON public.subscriptions FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for scores
+DROP POLICY IF EXISTS "Users can view their own scores" ON public.scores;
 CREATE POLICY "Users can view their own scores" ON public.scores FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can view all scores" ON public.scores;
 CREATE POLICY "Admins can view all scores" ON public.scores FOR SELECT USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Users can insert their own scores" ON public.scores;
 CREATE POLICY "Users can insert their own scores" ON public.scores FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can update their own scores" ON public.scores;
 CREATE POLICY "Users can update their own scores" ON public.scores FOR UPDATE USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can delete their own scores" ON public.scores;
 CREATE POLICY "Users can delete their own scores" ON public.scores FOR DELETE USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can update any score" ON public.scores;
 CREATE POLICY "Admins can update any score" ON public.scores FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can delete any score" ON public.scores;
 CREATE POLICY "Admins can delete any score" ON public.scores FOR DELETE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for draws
+DROP POLICY IF EXISTS "Draws are viewable by everyone" ON public.draws;
 CREATE POLICY "Draws are viewable by everyone" ON public.draws FOR SELECT USING (status = 'published');
+DROP POLICY IF EXISTS "Admins can view all draws" ON public.draws;
 CREATE POLICY "Admins can view all draws" ON public.draws FOR SELECT USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can insert draws" ON public.draws;
 CREATE POLICY "Admins can insert draws" ON public.draws FOR INSERT WITH CHECK (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can update draws" ON public.draws;
 CREATE POLICY "Admins can update draws" ON public.draws FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for draw entries
+DROP POLICY IF EXISTS "Users can view their own draw entries" ON public.draw_entries;
 CREATE POLICY "Users can view their own draw entries" ON public.draw_entries FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can view all draw entries" ON public.draw_entries;
 CREATE POLICY "Admins can view all draw entries" ON public.draw_entries FOR SELECT USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Users can insert their own draw entries" ON public.draw_entries;
 CREATE POLICY "Users can insert their own draw entries" ON public.draw_entries FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can update draw entries" ON public.draw_entries;
 CREATE POLICY "Admins can update draw entries" ON public.draw_entries FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for winners
+DROP POLICY IF EXISTS "Users can view their own winners" ON public.winners;
 CREATE POLICY "Users can view their own winners" ON public.winners FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can view all winners" ON public.winners;
 CREATE POLICY "Admins can view all winners" ON public.winners FOR SELECT USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can insert winners" ON public.winners;
 CREATE POLICY "Admins can insert winners" ON public.winners FOR INSERT WITH CHECK (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can update winners" ON public.winners;
 CREATE POLICY "Admins can update winners" ON public.winners FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for charity events
+DROP POLICY IF EXISTS "Charity events are viewable by everyone" ON public.charity_events;
 CREATE POLICY "Charity events are viewable by everyone" ON public.charity_events FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Admins can insert charity events" ON public.charity_events;
 CREATE POLICY "Admins can insert charity events" ON public.charity_events FOR INSERT WITH CHECK (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can update charity events" ON public.charity_events;
 CREATE POLICY "Admins can update charity events" ON public.charity_events FOR UPDATE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Admins can delete charity events" ON public.charity_events;
 CREATE POLICY "Admins can delete charity events" ON public.charity_events FOR DELETE USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
 
 -- RLS Policies for donations
+DROP POLICY IF EXISTS "Users can view their own donations" ON public.donations;
 CREATE POLICY "Users can view their own donations" ON public.donations FOR SELECT USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Admins can view all donations" ON public.donations;
 CREATE POLICY "Admins can view all donations" ON public.donations FOR SELECT USING (
   EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
 );
+DROP POLICY IF EXISTS "Users can insert their own donations" ON public.donations;
 CREATE POLICY "Users can insert their own donations" ON public.donations FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Admins can view all donations" ON public.donations FOR SELECT USING (
-  EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-);
 
 -- Function to handle new user signup
 CREATE OR REPLACE FUNCTION public.handle_new_user()

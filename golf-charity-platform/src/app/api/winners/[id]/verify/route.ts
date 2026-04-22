@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/client'
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const supabaseAdmin = createServiceClient()
   const { status, adminNotes } = await req.json()
 
@@ -21,7 +22,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
   const { data, error } = await supabaseAdmin
     .from('winners')
     .update(updateData)
-    .eq('id', params.id)
+    .eq('id', id)
     .select()
     .single()
 

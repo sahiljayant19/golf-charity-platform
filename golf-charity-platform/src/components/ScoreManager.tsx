@@ -147,7 +147,7 @@ export default function ScoreManager() {
                 max="45"
                 value={formData.score}
                 onChange={(e) => setFormData({ ...formData, score: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
                 placeholder="Enter your Stableford score"
               />
             </div>
@@ -159,7 +159,7 @@ export default function ScoreManager() {
                 type="date"
                 value={formData.scoreDate}
                 onChange={(e) => setFormData({ ...formData, scoreDate: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-900"
               />
             </div>
             <div className="flex gap-4">
